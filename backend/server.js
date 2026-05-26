@@ -35,8 +35,8 @@ const equipamentos = [
 // Endpoint para listar todos os equipamentos
 app.get('/equipamentos', (req, res) => {
     // Filtrar por status, tipo e buscar por nome
-    const { status, tipo, busca } = req.query;
-    console.log(tipo, status, busca);
+    const { status, tipo, busca, descricao } = req.query;
+    console.log(tipo, status, busca, descricao);
 
     let resultados = equipamentos;
     // filtrar por status
@@ -44,10 +44,24 @@ app.get('/equipamentos', (req, res) => {
     // filtrar por tipo
     if (tipo) resultados = resultados.filter(p => p.tipo === tipo);
 
-    // buscar por nome ou descrição
-    if (busca) resultados = resultados.filter(p => p.nome.toLowerCase().includes(busca.toLowerCase()) || p.descricao.toLowerCase().includes(busca.toLowerCase()));
+    // Atualização do Projeto Anterior: adição do campo de descrição para poder usar como input para cadastro também kk
+    // buscar por nome
+    if (busca) resultados = resultados.filter(p => p.nome.toLowerCase().includes(busca.toLowerCase()));
+    // buscar por descrição
+    if (descricao) resultados = resultados.filter(p => p.descricao.toLowerCase().includes(descricao.toLowerCase()));
 
     res.json(resultados);
+});
+
+// Endpoint para buscar um equipamento por ID
+app.get('/equipamentos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const equipamento = equipamentos.find(p => p.id === id);
+    if (equipamento) {
+        res.json(equipamento);
+    } else {
+        res.status(404).json({ error: 'Equipamento não encontrado' });
+    }
 });
 
 

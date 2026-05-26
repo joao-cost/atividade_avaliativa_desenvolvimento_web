@@ -11,7 +11,9 @@
     <h1>EQUIPAMENTOS DO LABORATÓRIO</h1>
     <div id="filtros">
         <p>Filtros de Pesquisa</p>
+        <input type="text" id="id" placeholder="ID" value="">
         <input type="text" id="nome" placeholder="NOME" value="">
+        <input type="text" id="descricao" placeholder="DESCRIÇÃO" value="">
         <select id="tipo">
             <option value="">- TIPO -</option>
             <option value="mouse">Mouse</option>
@@ -26,7 +28,15 @@
             <option value="indisponivel">Indisponível</option>
         </select>
         <button id="filtrar">FILTRAR</button>
+        <button id="cadastrar">CADASTRAR</button>
+        <!-- botão de salvar, depois que alterar - ai vou dar um display none -->
+        <button id="salvar">SALVAR</button>
     </div>
+
+    <!-- DIV para exibir alertas -->
+    <div id="alerta"></div>
+
+    <hr>
     <div id="equipamentos">
         <table>
             <thead>
@@ -36,12 +46,12 @@
                     <th>Tipo</th>
                     <th>Status</th>
                     <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="data">
 
             </tbody>
-            </tr>
         </table>
     </div>
     <script src='main.js'></script>
