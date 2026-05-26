@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>EQUIPAMENTOS DO LABORATÓRIO</title>
+    <link rel='stylesheet' href='main.css'>
+</head>
+<body>
+    <h1>EQUIPAMENTOS DO LABORATÓRIO</h1>
+    <div id="filtros">
+        <p>Filtros de Pesquisa</p>
+        <input type="text" id="nome" placeholder="NOME" value="">
+        <select id="tipo">
+            <option value="">- TIPO -</option>
+            <option value="mouse">Mouse</option>
+            <option value="teclado">Teclado</option>
+            <option value="monitor">Monitor</option>
+            <option value="projetor">Projetor</option>
+        </select>
+        <select id="status">
+            <option value="">- STATUS -</option>
+            <option value="disponivel">Disponível</option>
+            <option value="manutencao">Manutenção</option>
+            <option value="indisponivel">Indisponível</option>
+        </select>
+        <button id="filtrar">FILTRAR</button>
+    </div>
+    <div id="equipamentos">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+            </tr>
+        </table>
+    </div>
+    <script src='main.js'></script>
+</body>
+</html>

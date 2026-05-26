@@ -1,0 +1,54 @@
+*{
+    background: #222;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1{
+    text-align: center;
+    margin: 20px 0;
+    background-color: #333;
+    padding: 10px;
+    border-bottom: 10px solid #555;
+    text-shadow: 2px 2px 4px #000;
+}
+
+h1 + div{
+    gap: 20px;
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+}
+div#equipamentos table{
+    width: 90%;
+    margin: 20px auto;
+    justify-content: center;
+    border-collapse: collapse;
+    border: 2px solid #555;
+    background-color: #777;
+    text-align: center;
+}
+
+div#equipamentos td, div#equipamentos th{
+    border: 1px solid #555;
+    padding: 10px;
+}
+div#equipamentos th{
+    background-color: #555;
+}
+div#equipamentos tr:nth-child(even) td{
+    background-color: #333;
+}
+input, select, button{
+    padding: 10px;
+    margin: 4px;
+    border: 1px solid #555;
+    background-color: #333;
+}
+button:hover{
+    background-color: #555;
+    cursor: pointer;
+}
