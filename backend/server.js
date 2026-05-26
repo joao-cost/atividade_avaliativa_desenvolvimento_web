@@ -56,11 +56,12 @@ app.get('/equipamentos', (req, res) => {
 // Endpoint para buscar um equipamento por ID
 app.get('/equipamentos/:id', (req, res) => {
     const id = parseInt(req.params.id);
+    console.log('buscando por ID:', id);
     const equipamento = equipamentos.find(p => p.id === id);
     if (equipamento) {
         res.json(equipamento);
     } else {
-        res.status(404).json({ error: 'Equipamento não encontrado' });
+        res.status(404).json({ error: 'Equipamento não encontrado!' });
     }
 });
 
