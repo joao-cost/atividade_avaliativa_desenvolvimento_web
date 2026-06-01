@@ -100,6 +100,21 @@ app.put('/equipamentos/:id', (req, res) => {
     equipamento.descricao = descricao || equipamento.descricao;
 
     res.json(equipamento);
+    // log de sucesso
+    console.log(`Equipamento com ID ${id} atualizado com sucesso.`);
+});
+
+// Endpoint para excluir um equipamento por ID, se não encontrado retorna 404, responder com mensagem de sucesso ou 204
+app.delete('/equipamentos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = equipamentos.findIndex(p => p.id === id);
+    if (index === -1) {
+        return res.status(404).json({ error: 'Equipamento não encontrado!' });
+    }
+    equipamentos.splice(index, 1);
+    res.status(204).send();
+    // log de sucesso
+    console.log(`Equipamento com ID ${id} excluído com sucesso.`);
 });
 
 // Servidor Rodando

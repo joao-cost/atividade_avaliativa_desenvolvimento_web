@@ -156,6 +156,12 @@ tbody.addEventListener('click', async (event) => {
             document.querySelector('#cadastrar').style.display = 'none';
             document.querySelector('#filtrar').style.display = 'none';
             limparMensagem();
+            // salvar -> volta btn de cadastrar e filtrar, e esconde o de salvar
+            document.querySelector('#salvar').addEventListener('click', () => {
+                document.querySelector('#salvar').style.display = 'none';
+                document.querySelector('#cadastrar').style.display = 'inline-block';
+                document.querySelector('#filtrar').style.display = 'inline-block';
+            });
         } catch (error) {
             mostrarMensagem(error.message, 'erro');
             console.error('Erro ao buscar equipamento para edição:', error);
@@ -191,6 +197,31 @@ document.querySelector('#salvar').addEventListener('click', async () => {
     } catch (error) {
         mostrarMensagem(error.message, 'erro');
         console.error('Erro ao atualizar equipamento:', error);
+    }
+});
+
+// Função para excluir um equipamento ao clicar em "Excluir na linha", enviando uma requisição DELETE para o backend, e depois atualizando a lista de equipamentos e mostrando mensagem de sucesso ou erro
+tbody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('excluir')) {
+        const id = event.target.getAttribute('data-id');
+        if (confirm('Tem certeza que deseja excluir este equipamento?')) {
+            try {
+                const response = await fetch(`http://localhost:3000/equipamentos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    const erro = await response.json();
+                    throw new Error(erro.error || 'Erro ao excluir equipamento.');
+                }
+
+                mostrarMensagem('Equipamento excluído com sucesso!', 'sucesso');
+                getEquipamentos(); // Atualiza a lista de equipamentos
+            } catch (error) {
+                mostrarMensagem(error.message, 'erro');
+                console.error('Erro ao excluir equipamento:', error);
+            }
+        }
     }
 });
 
