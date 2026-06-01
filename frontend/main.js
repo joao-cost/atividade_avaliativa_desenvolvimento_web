@@ -101,4 +101,36 @@ const getEquipamentos = async () => {
 }
 getEquipamentos();
 
+// Função para cadastrar um novo equipamento
+const cadastrarEquipamento = async () => {
+    const nome = document.querySelector('#nome').value;
+    const tipo = document.querySelector('#tipo').value;
+    const status = document.querySelector('#status').value;
+    const descricao = document.querySelector('#descricao').value;
+
+    try {
+        const response = await fetch('http://localhost:3000/equipamentos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, tipo, status, descricao })
+        });
+
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.error || 'Erro ao cadastrar equipamento.');
+        }
+
+        const novoEquipamento = await response.json();
+        mostrarMensagem('Equipamento cadastrado com sucesso!', 'sucesso');
+        getEquipamentos(); // Atualiza a lista de equipamentos
+    } catch (error) { 
+        // Mensagem do erro dentro da DIV de alerta, e log do erro no console
+        mostrarMensagem(error.message, 'erro');
+        console.error('Erro ao cadastrar equipamento:', error);
+    }
+};
+
 document.querySelector('#filtrar').addEventListener('click', getEquipamentos);
+document.querySelector('#cadastrar').addEventListener('click', cadastrarEquipamento);

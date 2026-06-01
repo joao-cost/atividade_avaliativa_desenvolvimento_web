@@ -65,6 +65,23 @@ app.get('/equipamentos/:id', (req, res) => {
     }
 });
 
+// Endpoint para cadastrar um novo equipamento e retorna status 201
+app.post('/equipamentos', (req, res) => {
+    const { nome, tipo, status, descricao } = req.body;
+    if (!nome || !tipo || !status) {
+        return res.status(400).json({ error: 'Campos nome, tipo e status são obrigatórios!' });
+    }
+    const novoEquipamento = {
+        id: equipamentos.length > 0 ? Math.max(...equipamentos.map(p => p.id)) + 1 : 1,
+        nome,
+        tipo,
+        status,
+        descricao
+    };
+
+    equipamentos.push(novoEquipamento);
+    res.status(201).json(novoEquipamento);
+});
 
 // Servidor Rodando
 const PORT = 3000;
