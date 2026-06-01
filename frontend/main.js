@@ -132,5 +132,67 @@ const cadastrarEquipamento = async () => {
     }
 };
 
+// Função para editar um equipamento ao clicar em "Editar na linha", preenchendo os campos com os dados do equipamento selecionado e mostrando o botão de salvar e ocultando de cadastrar e filtrar
+tbody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('editar')) {
+        const id = event.target.getAttribute('data-id');
+        try {
+            const response = await fetch(`http://localhost:3000/equipamentos/${id}`);
+            if (!response.ok) {
+                const erro = await response.json();
+                throw new Error(erro.error || 'Erro ao buscar equipamento para edição.');
+            }
+            const equipamento = await response.json();
+
+            // Preencher os campos do formulário com os dados do equipamento
+            document.querySelector('#id').value = equipamento.id;
+            document.querySelector('#nome').value = equipamento.nome;
+            document.querySelector('#tipo').value = equipamento.tipo;
+            document.querySelector('#status').value = equipamento.status;
+            document.querySelector('#descricao').value = equipamento.descricao;
+
+            // Mostrar o botão de salvar e ocultar os botões de cadastrar e filtrar
+            document.querySelector('#salvar').style.display = 'inline-block';
+            document.querySelector('#cadastrar').style.display = 'none';
+            document.querySelector('#filtrar').style.display = 'none';
+            limparMensagem();
+        } catch (error) {
+            mostrarMensagem(error.message, 'erro');
+            console.error('Erro ao buscar equipamento para edição:', error);
+        }
+    }
+});
+
+// Função para salvar as alterações do equipamento editado, enviando uma requisição PUT para o backend, e depois atualizando a lista de equipamentos e mostrando mensagem de sucesso ou erro
+document.querySelector('#salvar').addEventListener('click', async () => {
+    const id = document.querySelector('#id').value;
+    const nome = document.querySelector('#nome').value;
+    const tipo = document.querySelector('#tipo').value;
+    const status = document.querySelector('#status').value;
+    const descricao = document.querySelector('#descricao').value;
+
+    try {
+        const response = await fetch(`http://localhost:3000/equipamentos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, tipo, status, descricao })
+        });
+
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.error || 'Erro ao atualizar equipamento.');
+        }
+
+        const equipamentoAtualizado = await response.json();
+        mostrarMensagem('Equipamento atualizado com sucesso!', 'sucesso');
+        getEquipamentos(); // Atualiza a lista de equipamentos
+    } catch (error) {
+        mostrarMensagem(error.message, 'erro');
+        console.error('Erro ao atualizar equipamento:', error);
+    }
+});
+
 document.querySelector('#filtrar').addEventListener('click', getEquipamentos);
 document.querySelector('#cadastrar').addEventListener('click', cadastrarEquipamento);

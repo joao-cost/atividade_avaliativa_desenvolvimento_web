@@ -83,6 +83,25 @@ app.post('/equipamentos', (req, res) => {
     res.status(201).json(novoEquipamento);
 });
 
+// Endpoint para atualizar um equipamento por ID, se não encontrado retorna 404, responder com o equipamento atualizado
+app.put('/equipamentos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome, tipo, status, descricao } = req.body;
+
+    const equipamento = equipamentos.find(p => p.id === id);
+    if (!equipamento) {
+        return res.status(404).json({ error: 'Equipamento não encontrado!' });
+    }
+
+    // Atualizar os campos do equipamento
+    equipamento.nome = nome || equipamento.nome;
+    equipamento.tipo = tipo || equipamento.tipo;
+    equipamento.status = status || equipamento.status;
+    equipamento.descricao = descricao || equipamento.descricao;
+
+    res.json(equipamento);
+});
+
 // Servidor Rodando
 const PORT = 3000;
 
