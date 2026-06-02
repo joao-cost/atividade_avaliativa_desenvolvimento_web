@@ -4,9 +4,9 @@ Integrante: João Vitor de Souza Costa
 
 Backend (rodar):
 
-cd backend
-bun install
-bun run dev
+- cd backend
+- bun install
+- bun run dev
 
 Frontend: abra `frontend/index.html` com Live Server (VS Code).
 
