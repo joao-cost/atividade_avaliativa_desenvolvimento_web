@@ -12,7 +12,7 @@ const limparMensagem = () => {
     alerta.innerHTML = '';
 };
 
-const getEquipamentos = async () => {
+const getEquipamentos = async (mostrarContagem = false) => {
     let url = 'http://localhost:3000/equipamentos?';
     
     // Oculta o botão de salvar, só aparece quando clicar em editar
@@ -91,7 +91,9 @@ const getEquipamentos = async () => {
             tbody.appendChild(tr);
         }
 
-        mostrarMensagem(`Operação concluída com sucesso. ${equipamentos.length} equipamento(s) encontrado(s).`, 'sucesso');
+        if (mostrarContagem) {
+            mostrarMensagem(`Operação concluída com sucesso. ${equipamentos.length} equipamento(s) encontrado(s).`, 'sucesso');
+        }
     } catch (error) {
         tbody.innerHTML = '';
         mostrarMensagem('Falha de comunicação com o servidor.', 'erro');
@@ -225,5 +227,5 @@ tbody.addEventListener('click', async (event) => {
     }
 });
 
-document.querySelector('#filtrar').addEventListener('click', getEquipamentos);
+document.querySelector('#filtrar').addEventListener('click', () => getEquipamentos(true));
 document.querySelector('#cadastrar').addEventListener('click', cadastrarEquipamento);
