@@ -1,15 +1,18 @@
-# lab-app
+Lab App — Equipamentos
 
-To install dependencies:
+Integrante: João Vitor de Souza Costa
 
-```bash
+Backend (rodar):
+
+cd backend
 bun install
-```
+bun run dev
 
-To run:
+Frontend: abra `frontend/index.html` com Live Server (VS Code).
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.3.13. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+Rotas principais:
+- GET /equipamentos
+- GET /equipamentos/:id
+- POST /equipamentos  (body: {nome,tipo,status,descricao?})
+- PUT /equipamentos/:id
+- DELETE /equipamentos/:id
