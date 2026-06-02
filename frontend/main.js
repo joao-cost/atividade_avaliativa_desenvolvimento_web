@@ -126,6 +126,12 @@ const cadastrarEquipamento = async () => {
 
         const novoEquipamento = await response.json();
         mostrarMensagem('Equipamento cadastrado com sucesso!', 'sucesso');
+        // Limpa o campo de ID e o formulário para evitar buscas por ID residual
+        document.querySelector('#id').value = '';
+        document.querySelector('#nome').value = '';
+        document.querySelector('#tipo').value = '';
+        document.querySelector('#status').value = '';
+        document.querySelector('#descricao').value = '';
         getEquipamentos(); // Atualiza a lista de equipamentos
     } catch (error) { 
         // Mensagem do erro dentro da DIV de alerta, e log do erro no console
@@ -195,6 +201,15 @@ document.querySelector('#salvar').addEventListener('click', async () => {
 
         const equipamentoAtualizado = await response.json();
         mostrarMensagem('Equipamento atualizado com sucesso!', 'sucesso');
+        // após salvar, limpar o id e restaurar botões
+        document.querySelector('#id').value = '';
+        document.querySelector('#nome').value = '';
+        document.querySelector('#tipo').value = '';
+        document.querySelector('#status').value = '';
+        document.querySelector('#descricao').value = '';
+        document.querySelector('#salvar').style.display = 'none';
+        document.querySelector('#cadastrar').style.display = 'inline-block';
+        document.querySelector('#filtrar').style.display = 'inline-block';
         getEquipamentos(); // Atualiza a lista de equipamentos
     } catch (error) {
         mostrarMensagem(error.message, 'erro');
